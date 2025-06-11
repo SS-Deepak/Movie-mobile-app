@@ -1,25 +1,26 @@
+import AuthProvider from "@/context/auth-context/auth.provider";
 import { Stack } from "expo-router";
 import { StatusBar } from "react-native";
 import './global.css';
 
 export default function RootLayout() {
   return <>
-    <StatusBar hidden={true} />
+    <StatusBar
+      backgroundColor={"transparent"}
+      barStyle="dark-content"
+    />
 
-    <Stack>
-      <Stack.Screen
-        name="(tabs)"
-        options={{
-          headerShown: false
+    <AuthProvider>
+      <Stack
+        initialRouteName="(public)/index"
+        screenOptions={{
+          headerShown: false,
+          animation: "fade",
+          contentStyle: {
+            backgroundColor: "transparent",
+          },
         }}
       />
-
-      <Stack.Screen
-        name="movies/[id]"
-        options={{
-          headerShown: false
-        }}
-      />
-    </Stack>
+    </AuthProvider>
   </>
 }
