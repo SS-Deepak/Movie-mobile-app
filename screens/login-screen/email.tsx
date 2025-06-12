@@ -1,6 +1,7 @@
 import InputBox from '@/components/atom/InputBox'
 import Icon from '@/constants/icons'
 import { images } from '@/constants/images'
+import { useRouter } from 'expo-router'
 import React, { useState } from 'react'
 import { Image, Text, TouchableOpacity, View } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
@@ -12,6 +13,7 @@ interface Props {
 const LoginEmailScreen = ({ onSuccess }: Props) => {
   const [email, setEmail] = useState('');
   const [validEmail, setValidEmail] = useState(true);
+  const router = useRouter();
 
   const onSubmit = () => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -22,6 +24,7 @@ const LoginEmailScreen = ({ onSuccess }: Props) => {
 
     setValidEmail(true);
     console.log('Email is valid:', email);
+    router.push('/login/password')
   }
 
   const onChangeText = (text: string) => {

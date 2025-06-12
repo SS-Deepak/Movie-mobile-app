@@ -1,4 +1,3 @@
-import AuthProvider from "@/context/auth-context/auth.provider";
 import { Stack } from "expo-router";
 import { StatusBar } from "react-native";
 import './global.css';
@@ -10,17 +9,17 @@ export default function RootLayout() {
       barStyle="dark-content"
     />
 
-    <AuthProvider>
-      <Stack
-        initialRouteName="(public)/index"
-        screenOptions={{
-          headerShown: false,
-          animation: "fade",
-          contentStyle: {
-            backgroundColor: "transparent",
-          },
-        }}
+    <Stack
+      screenOptions={{
+        headerShown: false,
+      }}
+    >
+      <Stack.Screen
+        name="(public)"
       />
-    </AuthProvider>
+      <Stack.Screen
+        name="(private)"
+      />
+    </Stack>
   </>
 }

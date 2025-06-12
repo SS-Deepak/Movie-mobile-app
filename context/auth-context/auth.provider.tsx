@@ -2,14 +2,14 @@ import { FC, PropsWithChildren, useMemo, useState } from "react";
 import AuthContext from "./auth.context";
 
 const AuthProvider: FC<PropsWithChildren> = ({ children }) => {
-  const [user, setUser] = useState<Record<string, any> | null>(null);
+  const [user, setUser] = useState<Record<string, any>>({});
 
-  const login = (user: Record<string, any>) => {
-    setUser(user);
+  const login = (u: Record<string, any>) => {
+    setUser({ ...user, ...u });
   };
 
   const logout = () => {
-    setUser(null);
+    setUser({});
   };
 
   const value = useMemo(() => {
