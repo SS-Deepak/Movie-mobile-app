@@ -24,7 +24,7 @@ const LoginEmailScreen = ({ onSuccess }: Props) => {
 
     setValidEmail(true);
     console.log('Email is valid:', email);
-    router.push('/login/password')
+    router.push('/(public)/login-password')
   }
 
   const onChangeText = (text: string) => {

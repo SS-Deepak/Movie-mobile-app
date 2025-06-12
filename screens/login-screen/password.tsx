@@ -47,14 +47,14 @@ const LoginPasswordScreen = ({ onSubmit }: Props) => {
             secureTextEntry={!showPassword}
             value={email}
             onChangeText={onChangeText}
-            placeholder='Business email'
+            placeholder='Password'
             preIcon={<Icon name='lock-closed-outline' size={20} color={'#AAAAAC'} />}
             postIcon={<Icon name={!showPassword ? 'eye-outline' : 'eye-off-outline'} size={20} color={'#AAAAAC'} />}
             onPostIconPress={() => setShowPassword(!showPassword)}
             inputClassName={`${!validEmail ? '!border-error' : ''}`}
           />
           <Text className={`text-error text-sm mt-1 ${validEmail ? 'hidden' : 'block'}`}>
-            Please enter a valid email address.
+            Incorrect password
           </Text>
         </View>
 

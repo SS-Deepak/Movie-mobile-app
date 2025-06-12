@@ -18,6 +18,8 @@ interface InputBoxProps {
   numberOfLines?: number;
   inputClassName?: string;
   containerClassName?: string;
+  onFocus?: () => void;
+  onBlur?: () => void;
 }
 
 const InputBox = (props: InputBoxProps) => {
@@ -42,6 +44,8 @@ const InputBox = (props: InputBoxProps) => {
           maxLength={props.maxLength}
           multiline={props.multiline}
           numberOfLines={props.numberOfLines}
+          onFocus={props.onFocus}
+          onBlur={props.onBlur}
           className={`border border-placeholder focus:border-teal w-full rounded-xl placeholder:text-placeholder py-5 ${rightPadding} ${leftPadding} ${props.inputClassName}`}
         />
 

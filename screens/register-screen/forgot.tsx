@@ -1,5 +1,5 @@
 import Icon from '@/constants/icons'
-import { Link } from 'expo-router'
+import { Link, useRouter } from 'expo-router'
 import React, { useState } from 'react'
 import { Text, TouchableOpacity, View } from 'react-native'
 import { OtpInput } from "react-native-otp-entry"
@@ -10,24 +10,27 @@ interface Props {
 }
 
 const ForgotPasswordScreen = ({ onSubmit }: Props) => {
-  const [email, setEmail] = useState('');
-  const [validEmail, setValidEmail] = useState(true);
   const [otp, setOtp] = useState('');
+  const [invalidOtp, setInvalidOtp] = useState(false);
+  const router = useRouter();
 
   const onPress = () => {
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(email)) {
-      setValidEmail(false);
+    if(!otp || otp.length !== 6) {
+      setInvalidOtp(true);
       return;
     }
+    console.log('OTP submitted:', otp);
+    setInvalidOtp(true);
+    setTimeout(() => {
+      setInvalidOtp(false);
+    }, 2000);
 
-    setValidEmail(true);
-    console.log('Email is valid:', email);
+    router.push('/(public)/reset-password')
   }
 
   const onChangeText = (text: string) => {
-    setEmail(text);
-    setValidEmail(true);
+    setOtp(text);
+    setInvalidOtp(false);
   }
 
   return (
@@ -48,7 +51,7 @@ const ForgotPasswordScreen = ({ onSubmit }: Props) => {
           <Text className='text-lg text-gray-300 font-semibold'>Enter confirmation code</Text>
           <OtpInput
             numberOfDigits={6}
-            focusColor="#68C0AB"
+            focusColor={invalidOtp ? "#E74B4BCC" : "#68C0AB"}
             autoFocus={false}
             blurOnFilled={true}
             disabled={false}
@@ -57,7 +60,7 @@ const ForgotPasswordScreen = ({ onSubmit }: Props) => {
             focusStickBlinkingDuration={500}
             onFocus={() => console.log("Focused")}
             onBlur={() => console.log("Blurred")}
-            onTextChange={(text) => setOtp(text)}
+            onTextChange={onChangeText}
             onFilled={(text) => console.log(`OTP is ${text}`)}
             textInputProps={{
               accessibilityLabel: "One-Time Password",
@@ -68,7 +71,9 @@ const ForgotPasswordScreen = ({ onSubmit }: Props) => {
               allowFontScaling: false,
             }}
           />
-          <Text className='text-md text-gray-400 mt-4 font-semibold'>Resending allowed in 25 seconds</Text>
+          <Text className='text-md text-gray-400 mt-4 font-semibold'>
+            {invalidOtp? <Text className='text-[#E74B4B]'>Wrong code. </Text> : null}
+            Resending allowed in 25 seconds</Text>
 
           <TouchableOpacity>
             <Text className='text-md text-primary mt-4 font-semibold'>Resend Confirmation Code</Text>
@@ -76,8 +81,8 @@ const ForgotPasswordScreen = ({ onSubmit }: Props) => {
 
         </View>
 
-        <TouchableOpacity disabled={!email?.trim()} onPress={onPress}>
-          <Text className={`h-16 w-full text-center py-4 text-lg font-semibold rounded-xl transition-all duration-200 ${!email?.trim()
+        <TouchableOpacity disabled={invalidOtp} onPress={onPress}>
+          <Text className={`h-16 w-full text-center py-4 text-lg font-semibold rounded-xl transition-all duration-200 ${invalidOtp
             ? `bg-secondary text-gray-400`
             : `bg-primary text-white`
             }`}>Reset Password</Text>
