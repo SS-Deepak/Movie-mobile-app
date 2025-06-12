@@ -3,13 +3,13 @@ import React from 'react'
 
 const _layout = () => {
   return (
-    <Stack>
-      <Stack.Screen
-        name="home"
-        options={{
-          headerShown: false,
-        }}
-      />
+    <Stack
+      screenOptions={{
+        headerShown: false,
+      }}
+    >
+      <Stack.Screen name="home" />
+      <Stack.Screen name="chats" />
     </Stack>
   )
 }

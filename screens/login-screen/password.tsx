@@ -1,7 +1,8 @@
 import InputBox from '@/components/atom/InputBox'
 import Icon from '@/constants/icons'
 import { images } from '@/constants/images'
-import { Link } from 'expo-router'
+import { Storage } from '@/services/async-storage'
+import { Link, useRouter } from 'expo-router'
 import React, { useState } from 'react'
 import { Image, Text, TouchableOpacity, View } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
@@ -14,16 +15,11 @@ const LoginPasswordScreen = ({ onSubmit }: Props) => {
   const [email, setEmail] = useState('');
   const [validEmail, setValidEmail] = useState(true);
   const [showPassword, setShowPassword] = useState(false);
+  const router = useRouter();
 
-  const onPress = () => {
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(email)) {
-      setValidEmail(false);
-      return;
-    }
-
-    setValidEmail(true);
-    console.log('Email is valid:', email);
+  const onPress = async () => {
+    await Storage().setItem('user', JSON.stringify({ email: 'deepak@simransoftwaresolutions.com', password: 'qoreai@Test1' }))
+    router.push('/(private)/home')
   }
 
   const onChangeText = (text: string) => {
