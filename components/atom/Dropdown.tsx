@@ -54,7 +54,7 @@ const Dropdown = ({
   });
 
   return (
-    <View className='relative px-4 '>
+    <View className='relative'>
       <Pressable onPress={toggleDropdown}>
         <View className='h-16 px-4 flex-row items-center justify-between bg-white border border-gray-100 rounded-xl shadow-sm'      >
           <Text className={`${!selectedOption ? 'text-placeholder' : ''} text-lg`}>{selectedOption?.label ?? placeholder ?? 'Select'}</Text>
@@ -63,7 +63,7 @@ const Dropdown = ({
       </Pressable>
       <Animated.View
         style={{ height }}
-        className={`overflow-hidden bg-[#f5f5f542] rounded-xl  ${open ? 'border border-t-0 border-gray-100' : ''}`}
+        className={`overflow-hidden absolute w-full z-10 top-16 bg-[#f5f5f5] shadow-xl rounded-xl  ${open ? 'border border-t-0 border-gray-100' : ''}`}
       >
         <ScrollView>
           {
